@@ -1,3 +1,4 @@
+
 import { usePathname } from "next/navigation"; 
 import { useEffect, useState } from "react" 
 
@@ -20,5 +21,6 @@ export const useAuth = () => {
         })
     }, [pathname])
     return { isLogin : isLogin, inforUser : inforUser } }
- 
+     
+
 
