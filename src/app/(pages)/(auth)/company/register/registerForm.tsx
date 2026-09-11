@@ -4,7 +4,7 @@ import JustValidate from 'just-validate';
 import { Notyf } from 'notyf';
 import "notyf/notyf.min.css"; 
 import { useRouter } from 'next/navigation';
-export default function RegisterForm() {    
+export const RegisterForm = () => {    
     const router = useRouter();
     useEffect(() => {  
         const notyf = new Notyf({ 
