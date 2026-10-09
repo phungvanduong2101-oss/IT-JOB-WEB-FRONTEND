@@ -10,4 +10,8 @@
 
 select, input, textarea {
   outline: none;
-}
+} 
+ 
+.filepond--image-preview {
+    object-fit: contain !important;
+} 
