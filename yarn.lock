@@ -372,6 +372,13 @@
   dependencies:
     tslib "^2.8.0"
 
+"@tinymce/tinymce-react@^6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-6.3.1.tgz#97bca5644359aa492255d1be287e5b7a7b82fbf0"
+  integrity sha512-hWTZ77lQGGRj5bwRmvYJaFTWroTfj9QFIf63XnR6eRJc2ZOgqYFQX607yP4cFthv5Fs/lM5dRd4QEhqFcndROw==
+  dependencies:
+    prop-types "^15.8.1"
+
 "@types/estree@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-1.0.6.tgz#628effeeae2064a1b4e79f78e81d87b7e5fc7b50"

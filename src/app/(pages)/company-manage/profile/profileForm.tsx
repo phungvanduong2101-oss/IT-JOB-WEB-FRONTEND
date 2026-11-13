@@ -10,6 +10,9 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 import { getCityList } from '@/hooks/cityList';
+import { EditorMCE } from '@/app/components/editor/EditorMCE';
+import { useRef } from 'react';
+
 registerPlugin(FilePondPluginImagePreview);
 
 
@@ -27,7 +30,7 @@ export const ProfileForm = () => {
   const [workTime, setWorkTime] = useState("");
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState<any[]>([]);
-
+  const editorRef = useRef(null);
   useEffect(() => {
     if (!inforCompany) return;
     setCompanyName(inforCompany.companyName);
@@ -99,10 +102,15 @@ export const ProfileForm = () => {
       const companyEmployees = event.target.companyEmployees.value;
       const workTime = event.target.workTime.value;
       const workOvertime = event.target.workOvertime.value;
-      const description = event.target.description.value;
       const newAvatar = avatar[0]?.file ?? null;
+      let description = "";
 
-      const formData = new FormData(); 
+      if (editorRef.current) {
+        description = (editorRef.current as any).getContent();
+      }
+
+
+      const formData = new FormData();
       formData.append('id', inforCompany._id);
       formData.append('companyName', companyName);
       formData.append('email', email);
@@ -113,7 +121,7 @@ export const ProfileForm = () => {
       formData.append('companyEmployees', companyEmployees);
       formData.append('workOvertime', workOvertime);
       formData.append('workTime', workTime);
-      formData.append('description', description); 
+      formData.append('description', description);
 
       if (newAvatar instanceof File) {
         formData.append('avatar', newAvatar);
@@ -136,7 +144,7 @@ export const ProfileForm = () => {
 
     })
 
-  }, [isLogin, inforCompany,avatar]);
+  }, [isLogin, inforCompany, avatar]);
   return (
     <>
       <form action="" className="grid sm:grid-cols-2 grid-cols-1 gap-x-[20px] gap-y-[15px]" id="profileCompanyForm">
@@ -159,14 +167,14 @@ export const ProfileForm = () => {
           </label>
 
           <FilePond
-            files={avatar} 
+            files={avatar}
             onupdatefiles={(fileItems) => {
-                        setAvatar(fileItems)
-                     }}
+              setAvatar(fileItems)
+            }}
             allowMultiple={false}
             name="avatar"
-            id="avatar" 
-            
+            id="avatar"
+
             acceptedFileTypes={['image/*']}
           />
 
@@ -182,7 +190,7 @@ export const ProfileForm = () => {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           >
-            {cityList.map((item: any) => ( 
+            {cityList.map((item: any) => (
               <option key={item.code} value={item.name}>
                 {item.name}
               </option>
@@ -285,13 +293,16 @@ export const ProfileForm = () => {
           <label htmlFor="description" className="block font-[500] text-[14px] text-black mb-[5px]">
             Mô tả chi tiết
           </label>
+          {/*
           <textarea
             name="description"
             id="description"
             className="w-[100%] h-[350px] border border-[#DEDEDE] rounded-[4px] py-[14px] px-[20px] font-[500] text-[14px] text-black"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+          ></textarea> */}
+
+        <EditorMCE inforCompany={inforCompany} description={description} editorRef={editorRef} />
         </div>
         <div className="sm:col-span-2">
           <button className="bg-[#0088FF] rounded-[4px] h-[48px] px-[20px] font-[700] text-[16px] text-white">

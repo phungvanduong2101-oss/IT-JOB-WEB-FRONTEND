@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^6.3.1",
     "filepond": "^4.32.12",
     "filepond-plugin-image-preview": "^4.6.12",
     "just-validate": "^4.3.0",
